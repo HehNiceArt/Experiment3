@@ -15,7 +15,10 @@ public class PlayerController : MonoBehaviour
     [Space(10f)]
     [Header("JUMP")]
     [SerializeField] float jumpHeight;
+    [Range(1f, 2f)]
     [SerializeField] float jumpPeakLength;
+    [Range(0f, 100f)]
+    [SerializeField, Tooltip("In Percentage 5")] float jumpMoveModifier;
 
     [Space(10f)]
     [Header("MASS")]
@@ -51,17 +54,29 @@ public class PlayerController : MonoBehaviour
         HorizontalMovement();
         CapMovementSpeed();
     }
+    float Movement()
+    {
+        if (isJumping)
+        {
+            float inAirMovement = rb.velocity.x * (jumpMoveModifier * 0.01f);
+            return inAirMovement;
+        }
+        else
+        {
+            return rb.velocity.x;
+        }
+    }
     void HorizontalMovement()
     {
         if (move > 0)
         {
-            float righInput = rb.velocity.x + (maxSpeed * aceleration * Time.deltaTime);
+            float righInput = Movement() + (maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(righInput, rb.velocity.y);
             playerVelocity = rb.velocity;
         }
         else if (move < 0)
         {
-            float leftInput = rb.velocity.x + (-maxSpeed * aceleration * Time.deltaTime);
+            float leftInput = Movement() + (-maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(leftInput, rb.velocity.y);
             playerVelocity = rb.velocity;
         }
@@ -69,15 +84,15 @@ public class PlayerController : MonoBehaviour
         {
             if (rb.velocity.x != 0)
             {
-                float deccelerationAmount = decceleration * Time.deltaTime;
+                float deccelerationAmount = decceleration * Time.fixedDeltaTime;
                 if (rb.velocity.x > 0)
                 {
-                    rb.velocity = new Vector2(Mathf.Max(rb.velocity.x - deccelerationAmount, 0), rb.velocity.y);
+                    rb.velocity = new Vector2(Mathf.Max(Movement() + deccelerationAmount, 0), rb.velocity.y);
                     playerVelocity = rb.velocity;
                 }
                 else
                 {
-                    rb.velocity = new Vector2(Mathf.Min(rb.velocity.x + deccelerationAmount, 0), rb.velocity.y);
+                    rb.velocity = new Vector2(Mathf.Min(Movement() - deccelerationAmount, 0), rb.velocity.y);
                     playerVelocity = rb.velocity;
                 }
             }
@@ -100,7 +115,7 @@ public class PlayerController : MonoBehaviour
         {
             isJumping = true;
             isGrounded = false;
-            rb.velocity = new Vector2(rb.velocity.x, Jump());
+            rb.velocity = new Vector2(Movement(), Jump());
         }
         else if (rb.velocity.y > 0)
         {
@@ -119,7 +134,7 @@ public class PlayerController : MonoBehaviour
     float Jump()
     {
         initialVelocity = 2 * jumpHeight / jumpPeakLength;
-        playerVelocity = new Vector2(rb.velocity.x, initialVelocity);
+        playerVelocity = new Vector2(Movement(), initialVelocity);
         return Mathf.Abs(initialVelocity);
     }
     private void OnCollisionEnter2D(Collision2D other)

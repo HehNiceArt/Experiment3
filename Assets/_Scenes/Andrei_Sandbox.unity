@@ -420,15 +420,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e589b7ab3a9964f4ba58bad5d0b724f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aceleration: 7
-  decceleration: 15
-  maxSpeed: 10
-  jumpHeight: 15
+  aceleration: 5
+  decceleration: 3
+  maxSpeed: 13
+  jumpHeight: 10
   jumpPeakLength: 1
+  jumpMoveModifier: 90
   playerMass: 10
   gravityMultiplier: 1
-  highGravityModifier: 150
-  gravity: 9.81
+  highGravityModifier: 175
+  gravity: 6
   isGrounded: 1
   isJumping: 0
 --- !u!50 &886153865
