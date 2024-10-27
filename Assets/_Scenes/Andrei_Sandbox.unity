@@ -421,14 +421,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aceleration: 7
-  decceleration: 20
+  decceleration: 15
   maxSpeed: 10
-  playerVelocity: {x: 0, y: 0}
-  jumpHeight: 20
-  jumpDuration: 4
-  jumpDurationMax: 0.5
+  jumpHeight: 15
+  jumpPeakLength: 1
   playerMass: 10
   gravityMultiplier: 1
+  highGravityModifier: 150
   gravity: 9.81
   isGrounded: 1
   isJumping: 0
