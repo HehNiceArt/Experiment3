@@ -7,25 +7,23 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("SPEED")]
-    [SerializeField] float aceleration;
-    [SerializeField] float decceleration;
-    [SerializeField] float maxSpeed;
-    Vector2 playerVelocity;
+    [SerializeField] float aceleration = 5;
+    [SerializeField] float decceleration = 40;
+    [SerializeField] float maxSpeed = 13;
 
     [Space(10f)]
     [Header("JUMP")]
-    [SerializeField] float jumpHeight;
+    [SerializeField] float jumpHeight = 10;
     [Range(1f, 2f)]
-    [SerializeField] float jumpPeakLength;
+    [SerializeField] float jumpPeakLength = 1;
     [Range(0f, 100f)]
-    [SerializeField, Tooltip("In Percentage 5")] float jumpMoveModifier;
+    [SerializeField, Tooltip("In Percentage %")] float jumpMoveModifier = 90;
 
     [Space(10f)]
-    [Header("MASS")]
-    [SerializeField] float playerMass;
-    [SerializeField] float gravityMultiplier;
-    [SerializeField, Tooltip("In Percentage %")] float highGravityModifier;
-    [SerializeField] float gravity = 9.81f;
+    [Header("GRAVITY")]
+    [SerializeField] float gravityMultiplier = 1;
+    [SerializeField, Tooltip("In Percentage %")] float highGravityModifier = 175;
+    [SerializeField] float gravity = 6;
 
     [Space(10f)]
     [Header("BOOLEANS")]
@@ -41,11 +39,11 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        currentGravity = gravity * gravityMultiplier;
-        rb.gravityScale = gravityMultiplier * gravity;
     }
     private void Update()
     {
+        currentGravity = gravity * gravityMultiplier;
+        rb.gravityScale = gravityMultiplier * gravity;
         move = Input.GetAxisRaw("Horizontal");
         JumpMovement();
     }
@@ -72,13 +70,11 @@ public class PlayerController : MonoBehaviour
         {
             float righInput = Movement() + (maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(righInput, rb.velocity.y);
-            playerVelocity = rb.velocity;
         }
         else if (move < 0)
         {
             float leftInput = Movement() + (-maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(leftInput, rb.velocity.y);
-            playerVelocity = rb.velocity;
         }
         else
         {
@@ -87,13 +83,11 @@ public class PlayerController : MonoBehaviour
                 float deccelerationAmount = decceleration * Time.fixedDeltaTime;
                 if (rb.velocity.x > 0)
                 {
-                    rb.velocity = new Vector2(Mathf.Max(Movement() + deccelerationAmount, 0), rb.velocity.y);
-                    playerVelocity = rb.velocity;
+                    rb.velocity = new Vector2(Mathf.Max(Movement() - deccelerationAmount, 0), rb.velocity.y);
                 }
-                else
+                else if (rb.velocity.x < 0)
                 {
-                    rb.velocity = new Vector2(Mathf.Min(Movement() - deccelerationAmount, 0), rb.velocity.y);
-                    playerVelocity = rb.velocity;
+                    rb.velocity = new Vector2(Mathf.Min(Movement() + deccelerationAmount, 0), rb.velocity.y);
                 }
             }
         }
@@ -116,6 +110,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             isGrounded = false;
             rb.velocity = new Vector2(Movement(), Jump());
+            Debug.Log(rb.velocity);
         }
         else if (rb.velocity.y > 0)
         {
@@ -123,8 +118,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (rb.velocity.y < initialVelocity)
         {
-            float lowGravity = currentGravity * (highGravityModifier * 0.01f);
-            rb.gravityScale = lowGravity;
+            float highGravity = currentGravity * (highGravityModifier * 0.01f);
+            rb.gravityScale = highGravity;
         }
         if (rb.velocity.y == 0)
         {
@@ -134,7 +129,6 @@ public class PlayerController : MonoBehaviour
     float Jump()
     {
         initialVelocity = 2 * jumpHeight / jumpPeakLength;
-        playerVelocity = new Vector2(Movement(), initialVelocity);
         return Mathf.Abs(initialVelocity);
     }
     private void OnCollisionEnter2D(Collision2D other)
