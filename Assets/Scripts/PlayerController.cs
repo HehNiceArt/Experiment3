@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpPeakLength = 1;
     [Range(0f, 100f)]
     [SerializeField, Tooltip("In Percentage %")] float jumpMoveModifier = 90;
+    [Range(0f, 1f)]
+    [SerializeField] float jumpCooldown = 3f;
+    float jumpCooldownTimer = 0f;
 
     [Space(10f)]
     [Header("GRAVITY")]
@@ -37,14 +40,13 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void Start()
-    {
-    }
     private void Update()
     {
         currentGravity = gravity * gravityMultiplier;
         rb.gravityScale = gravityMultiplier * gravity;
         move = Input.GetAxisRaw("Horizontal");
+
+        jumpCooldownTimer -= Time.deltaTime;
         JumpMovement();
     }
     private void FixedUpdate()
@@ -105,12 +107,12 @@ public class PlayerController : MonoBehaviour
     }
     void JumpMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer <= 0)
         {
             isJumping = true;
             isGrounded = false;
             rb.velocity = new Vector2(Movement(), Jump());
-            Debug.Log(rb.velocity);
+            jumpCooldownTimer = jumpCooldown;
         }
         else if (rb.velocity.y > 0)
         {
@@ -139,9 +141,4 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
         }
     }
-    //TODO
-    //Jump Cooldown
-    //Jump Input Buffering
-    //Coyote Jump
-    //Edge Correction
 }

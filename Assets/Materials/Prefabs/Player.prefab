@@ -112,7 +112,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &9074718385939236270
 MonoBehaviour:
@@ -132,6 +132,7 @@ MonoBehaviour:
   jumpHeight: 10
   jumpPeakLength: 1
   jumpMoveModifier: 90
+  jumpCooldown: 0.4
   gravityMultiplier: 1
   highGravityModifier: 200
   gravity: 6
