@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
 
     [Space(10f)]
     [Header("BOOLEANS")]
-    [SerializeField] bool isGrounded = true;
     [SerializeField] bool isJumping = false;
     Rigidbody2D rb;
     float currentGravity;
@@ -110,7 +109,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer <= 0)
         {
             isJumping = true;
-            isGrounded = false;
             rb.velocity = new Vector2(Movement(), Jump());
             jumpCooldownTimer = jumpCooldown;
         }
@@ -137,7 +135,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
             isJumping = false;
         }
     }
