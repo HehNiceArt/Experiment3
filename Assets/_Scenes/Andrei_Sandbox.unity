@@ -1141,7 +1141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9074718385939236270, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
       propertyPath: jumpCutMultiplier
-      value: 1
+      value: 0.287
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

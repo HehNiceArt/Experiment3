@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 
+//Andrei Dominic Quirante
 public class PlayerWallRide : MonoBehaviour
 {
-
     [SerializeField] bool isTouchingWall;
     [SerializeField] float slide;
     [SerializeField] float maxWallStickTime = 1f;

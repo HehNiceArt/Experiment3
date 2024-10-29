@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Andrei Dominic Quirante
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerWallRide))]
 public class PlayerController : MonoBehaviour
 {
     [Header("SPEED")]
@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 100f)]
     [SerializeField, Tooltip("In Percentage %")] float jumpMoveModifier = 90;
     [Range(0f, 1f)]
-    [SerializeField] float jumpCooldown = 3f;
+    [SerializeField] float jumpCooldown = 0.4f;
     [Range(0f, 1f)]
-    [SerializeField] float jumpCutMultiplier = 2.5f;
+    [SerializeField] float jumpInputBuffer = 0.2f;
     float jumpCooldownTimer = 0f;
 
     [Space(10f)]
@@ -71,11 +71,13 @@ public class PlayerController : MonoBehaviour
     {
         if (move > 0)
         {
+            if (rb.velocity.x < 0) rb.velocity = new Vector2(0, rb.velocity.y);
             float righInput = Movement() + (maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(righInput, rb.velocity.y);
         }
         else if (move < 0)
         {
+            if (rb.velocity.x > 0) rb.velocity = new Vector2(0, rb.velocity.y);
             float leftInput = Movement() + (-maxSpeed * aceleration * Time.fixedDeltaTime);
             rb.velocity = new Vector2(leftInput, rb.velocity.y);
         }
@@ -117,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpInputBuffer);
         }
         if (rb.velocity.y > 0)
         {
