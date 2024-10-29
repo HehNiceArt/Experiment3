@@ -951,6 +951,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTouchingWall: 0
+  slide: 1
+  maxWallStickTime: 2
 --- !u!1 &2089607782
 GameObject:
   m_ObjectHideFlags: 0

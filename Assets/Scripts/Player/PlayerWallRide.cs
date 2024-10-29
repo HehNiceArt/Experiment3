@@ -24,7 +24,6 @@ public class PlayerWallRide : MonoBehaviour
         {
             if (!wasTouchingWall)
             {
-
                 wallStickTimer = maxWallStickTime;
             }
             wallStickTimer -= Time.deltaTime;
