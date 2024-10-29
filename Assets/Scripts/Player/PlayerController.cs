@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [Space(10f)]
     [Header("BOOLEANS")]
     [SerializeField] bool isJumping = false;
-    Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     float currentGravity;
     float move;
     float initialVelocity;
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             rb.gravityScale = currentGravity;
         }
     }
-    float Jump()
+    public float Jump()
     {
         initialVelocity = 2 * jumpHeight / jumpPeakLength;
         return Mathf.Abs(initialVelocity);
