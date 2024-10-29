@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("In Percentage %")] float jumpMoveModifier = 90;
     [Range(0f, 1f)]
     [SerializeField] float jumpCooldown = 3f;
+    [Range(0f, 1f)]
+    [SerializeField] float jumpCutMultiplier = 2.5f;
     float jumpCooldownTimer = 0f;
 
     [Space(10f)]
@@ -30,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     [Space(10f)]
     [Header("BOOLEANS")]
-    [SerializeField] bool isJumping = false;
+    public bool isJumping = false;
     [HideInInspector] public Rigidbody2D rb;
     float currentGravity;
     float move;
@@ -112,7 +114,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(Movement(), Jump());
             jumpCooldownTimer = jumpCooldown;
         }
-        else if (rb.velocity.y > 0)
+
+        if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpCutMultiplier);
+        }
+        if (rb.velocity.y > 0)
         {
             rb.gravityScale = currentGravity;
         }

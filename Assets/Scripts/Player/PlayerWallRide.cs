@@ -7,6 +7,10 @@ public class PlayerWallRide : MonoBehaviour
 {
 
     [SerializeField] bool isTouchingWall;
+    [SerializeField] float slide;
+    [SerializeField] float maxWallStickTime = 1f;
+    float wallStickTimer;
+    bool wasTouchingWall;
     PlayerController playerController;
     Rigidbody2D rb2D;
     private void Start()
@@ -16,16 +20,32 @@ public class PlayerWallRide : MonoBehaviour
     }
     private void Update()
     {
-        if (isTouchingWall && Input.GetKeyDown(KeyCode.Space) && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
+        if (isTouchingWall)
         {
-            rb2D.constraints = RigidbodyConstraints2D.None;
-            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
+            if (!wasTouchingWall)
+            {
+
+                wallStickTimer = maxWallStickTime;
+            }
+            wallStickTimer -= Time.deltaTime;
+            if (wallStickTimer <= 0)
+            {
+                rb2D.constraints = RigidbodyConstraints2D.None;
+                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Max(rb2D.velocity.y, -slide));
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb2D.constraints = RigidbodyConstraints2D.None;
+                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
+            }
         }
+        wasTouchingWall = isTouchingWall;
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") && playerController.isJumping)
         {
             isTouchingWall = true;
             rb2D.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -35,12 +55,9 @@ public class PlayerWallRide : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Wall"))
         {
+            rb2D.constraints = RigidbodyConstraints2D.None;
+            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             isTouchingWall = false;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
     }
 }

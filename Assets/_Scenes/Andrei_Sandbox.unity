@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18be17d959ae34559b9735602947df09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallDistance: 1
+  isTouchingWall: 0
 --- !u!1 &2089607782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,6 +1132,14 @@ PrefabInstance:
     - target: {fileID: 5551652585080730359, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074718385939236270, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
+      propertyPath: decceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074718385939236270, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
+      propertyPath: jumpCutMultiplier
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
