@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2934453473458311176}
   - component: {fileID: 9074718385939236270}
   - component: {fileID: 2623802850443329247}
-  - component: {fileID: 1022878327109154347}
+  - component: {fileID: 583234453012621151}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -139,6 +139,7 @@ MonoBehaviour:
   highGravityModifier: 200
   gravity: 6
   isJumping: 0
+  isOnGround: 1
   rb: {fileID: 0}
 --- !u!61 &2623802850443329247
 BoxCollider2D:
@@ -185,7 +186,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1022878327109154347
+--- !u!114 &583234453012621151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,5 +199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTouchingWall: 0
-  slide: 0
-  maxWallStickTime: 1
+  slide: 1
+  maxWallStickTime: 1.2
+  wasTouchingWall: 0
+  hasStuckToWall: 0
+  wasOnGround: 0
+  onAir: 0
