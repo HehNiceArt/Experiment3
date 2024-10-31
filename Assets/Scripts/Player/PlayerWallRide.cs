@@ -6,10 +6,13 @@ using UnityEngine;
 public class PlayerWallRide : MonoBehaviour
 {
     [SerializeField] bool isTouchingWall;
-    [SerializeField] float slide;
-    [SerializeField] float maxWallStickTime = 1f;
+    [SerializeField] float slide = 1f;
+    [SerializeField] float maxWallStickTime = 1.2f;
     float wallStickTimer;
-    bool wasTouchingWall;
+    [SerializeField] bool wasTouchingWall;
+    [SerializeField] bool hasStuckToWall;
+    [SerializeField] bool wasOnGround;
+    [SerializeField] bool onAir;
     PlayerController playerController;
     Rigidbody2D rb2D;
     private void Start()
@@ -19,6 +22,13 @@ public class PlayerWallRide : MonoBehaviour
     }
     private void Update()
     {
+        wasOnGround = playerController.isOnGround;
+        if (playerController.isOnGround)
+        {
+            isTouchingWall = false;
+            hasStuckToWall = false;
+            onAir = false;
+        }
         if (isTouchingWall)
         {
             if (!wasTouchingWall)
@@ -26,26 +36,33 @@ public class PlayerWallRide : MonoBehaviour
                 wallStickTimer = maxWallStickTime;
             }
             wallStickTimer -= Time.deltaTime;
-            if (wallStickTimer <= 0)
+            if (hasStuckToWall && onAir == false)
             {
-                rb2D.constraints = RigidbodyConstraints2D.None;
-                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-                rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Max(rb2D.velocity.y, -slide));
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                rb2D.constraints = RigidbodyConstraints2D.None;
-                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-                rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
+                if (wallStickTimer <= 0)
+                {
+                    ReleaseFromWall();
+                    rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Max(rb2D.velocity.y, -slide));
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    ReleaseFromWall();
+                    rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
+                }
             }
         }
         wasTouchingWall = isTouchingWall;
     }
+    void ReleaseFromWall()
+    {
+        rb2D.constraints = RigidbodyConstraints2D.None;
+        rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall") && playerController.isJumping)
+        if (other.gameObject.CompareTag("Wall") && playerController.isJumping && !hasStuckToWall && !onAir)
         {
             isTouchingWall = true;
+            hasStuckToWall = true;
             rb2D.constraints = RigidbodyConstraints2D.FreezePosition;
         }
     }
@@ -55,7 +72,9 @@ public class PlayerWallRide : MonoBehaviour
         {
             rb2D.constraints = RigidbodyConstraints2D.None;
             rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            onAir = true;
             isTouchingWall = false;
+            hasStuckToWall = false;
         }
     }
 }

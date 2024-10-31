@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [Space(10f)]
     [Header("BOOLEANS")]
     public bool isJumping = false;
+    public bool isOnGround = true;
     [HideInInspector] public Rigidbody2D rb;
     float currentGravity;
     float move;
@@ -113,6 +114,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer <= 0)
         {
             isJumping = true;
+            isOnGround = false;
             rb.velocity = new Vector2(Movement(), Jump());
             jumpCooldownTimer = jumpCooldown;
         }
@@ -144,6 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            isOnGround = true;
             isJumping = false;
         }
     }
