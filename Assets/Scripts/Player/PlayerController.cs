@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Andrei Dominic Quirante
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerWallRide))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerWallRide), typeof(PlayerDash))]
 public class PlayerController : MonoBehaviour
 {
     [Header("SPEED")]

@@ -933,26 +933,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &1634846701 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5292662000062126711, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-  m_PrefabInstance: {fileID: 1502123457176065134}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1634846702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1634846701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18be17d959ae34559b9735602947df09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTouchingWall: 0
-  slide: 1
-  maxWallStickTime: 1.2
 --- !u!1 &2089607782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,22 +1115,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9074718385939236270, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-      propertyPath: decceleration
-      value: 100
+    - target: {fileID: 7661197398979799247, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
+      propertyPath: dashForce
+      value: 24
       objectReference: {fileID: 0}
-    - target: {fileID: 9074718385939236270, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-      propertyPath: jumpCutMultiplier
-      value: 0.287
+    - target: {fileID: 7661197398979799247, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
+      propertyPath: dashCooldown
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1022878327109154347, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5292662000062126711, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1634846702}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
