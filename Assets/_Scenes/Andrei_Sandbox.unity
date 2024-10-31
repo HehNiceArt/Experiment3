@@ -1115,14 +1115,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7661197398979799247, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-      propertyPath: dashForce
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 7661197398979799247, guid: 87c9179ac80b4400c87f2ce4977eff31, type: 3}
-      propertyPath: dashCooldown
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

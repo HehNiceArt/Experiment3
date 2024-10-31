@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9074718385939236270}
   - component: {fileID: 2623802850443329247}
   - component: {fileID: 583234453012621151}
+  - component: {fileID: 7661197398979799247}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -205,3 +206,20 @@ MonoBehaviour:
   hasStuckToWall: 0
   wasOnGround: 0
   onAir: 0
+--- !u!114 &7661197398979799247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292662000062126711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53fde51cab9f3d46b892c95195995d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 24
+  dashTime: 0.2
+  dashCooldown: 1
+  canDash: 1
+  isDashing: 0
