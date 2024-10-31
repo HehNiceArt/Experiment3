@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     }
     void JumpMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCooldownTimer <= 0 && isOnGround)
         {
             isJumping = true;
             isOnGround = false;
