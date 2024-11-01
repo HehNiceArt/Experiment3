@@ -208,6 +208,11 @@ MonoBehaviour:
   hasStuckToWall: 0
   wasOnGround: 0
   onAir: 0
+  sliderImage: {fileID: 0}
+  sliderMaterial: {fileID: 2100000, guid: 20add58781e652c4a84dc106feb54fa6, type: 2}
+  maxStamina: 10
+  staminaDrainRate: 20
+  staminaRegenRate: 10
 --- !u!114 &7661197398979799247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b642be70e4307947a111bc56fbc5f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stunDuration: 1
+  stunDuration: 2
 --- !u!114 &4095954738334895881
 MonoBehaviour:
   m_ObjectHideFlags: 0

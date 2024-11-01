@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCollideEnemy : MonoBehaviour
 {
-    //Add freeze frame to have more impact
     //particles too and sfx
     [Range(0, 60)]
     [SerializeField] int freezeFrames = 3;

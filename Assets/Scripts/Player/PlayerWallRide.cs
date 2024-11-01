@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Andrei Dominic Quirante
 public class PlayerWallRide : MonoBehaviour
@@ -15,10 +16,20 @@ public class PlayerWallRide : MonoBehaviour
     [SerializeField] bool onAir;
     PlayerController playerController;
     Rigidbody2D rb2D;
+    [SerializeField] Image sliderImage;
+    [SerializeField] Material sliderMaterial;
+    [SerializeField] float maxStamina = 100f;
+    [SerializeField] float staminaDrainRate = 20f;
+    [SerializeField] float staminaRegenRate = 10f;
+    private float currentStamina;
+
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
         rb2D = playerController.rb;
+        currentStamina = maxStamina;
+
+        sliderImage.material = sliderMaterial;
     }
     private void Update()
     {
@@ -38,7 +49,11 @@ public class PlayerWallRide : MonoBehaviour
             wallStickTimer -= Time.deltaTime;
             if (hasStuckToWall && onAir == false)
             {
-                if (wallStickTimer <= 0)
+                currentStamina -= staminaDrainRate * Time.deltaTime;
+                currentStamina = Mathf.Max(0f, currentStamina);
+                sliderMaterial.SetFloat("_SliderValue", currentStamina / maxStamina);
+
+                if (wallStickTimer <= 0 || currentStamina <= 0)
                 {
                     ReleaseFromWall();
                     rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Max(rb2D.velocity.y, -slide));
@@ -50,6 +65,12 @@ public class PlayerWallRide : MonoBehaviour
                     rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
                 }
             }
+        }
+        else if (playerController.isOnGround)
+        {
+            currentStamina += staminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Min(currentStamina, maxStamina);
+            sliderMaterial.SetFloat("_SliderValue", currentStamina / maxStamina);
         }
         wasTouchingWall = isTouchingWall;
     }
