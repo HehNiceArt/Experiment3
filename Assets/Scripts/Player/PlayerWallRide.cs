@@ -46,6 +46,7 @@ public class PlayerWallRide : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     ReleaseFromWall();
+                    onAir = true;
                     rb2D.velocity = new Vector2(rb2D.velocity.x, playerController.Jump());
                 }
             }
