@@ -20,6 +20,10 @@ public class PlayerDash : MonoBehaviour
     }
     void Update()
     {
+        if (GetComponent<PlayerStun>().isStunned)
+        {
+            return;
+        }
         if (isDashing)
         {
             return;

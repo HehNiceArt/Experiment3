@@ -4,6 +4,7 @@ using UnityEngine;
 
 //Andrei Dominic Quirante
 [RequireComponent(typeof(Rigidbody2D), typeof(PlayerWallRide), typeof(PlayerDash))]
+[RequireComponent(typeof(PlayerStun), typeof(PlayerCollideEnemy))]
 public class PlayerController : MonoBehaviour
 {
     [Header("SPEED")]
@@ -44,6 +45,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (GetComponent<PlayerStun>().isStunned)
+        {
+            return;
+        }
         currentGravity = gravity * gravityMultiplier;
         rb.gravityScale = gravityMultiplier * gravity;
         move = Input.GetAxisRaw("Horizontal");

@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2623802850443329247}
   - component: {fileID: 583234453012621151}
   - component: {fileID: 7661197398979799247}
+  - component: {fileID: 362084140413056389}
+  - component: {fileID: 4095954738334895881}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -223,3 +225,30 @@ MonoBehaviour:
   dashCooldown: 1
   canDash: 1
   isDashing: 0
+--- !u!114 &362084140413056389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292662000062126711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b642be70e4307947a111bc56fbc5f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunDuration: 1
+--- !u!114 &4095954738334895881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292662000062126711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9d7e465361a9047ac7f6c774b1fac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freezeFrames: 9
+  maintainVelocity: 0

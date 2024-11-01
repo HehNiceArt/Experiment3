@@ -4,20 +4,42 @@ using UnityEngine;
 
 public class PlayerStun : MonoBehaviour
 {
-    //TODO
-    //Make player get stunned (Not be able to move player using WASD, Left Shift, Space)
-    //x seconds before player can resume again.
+    [SerializeField] private float stunDuration = 1f;
+    public bool isStunned { get; private set; } = false;
+    private PlayerController playerController;
+    private PlayerDash playerDash;
+    private Rigidbody2D rb;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-
+        playerController = GetComponent<PlayerController>();
+        playerDash = GetComponent<PlayerDash>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StunPlayer()
     {
+        if (!isStunned && !playerDash.isDashing)
+        {
+            StartCoroutine(ApplyStun());
+        }
+    }
 
+    IEnumerator ApplyStun()
+    {
+        isStunned = true;
+
+        rb.velocity = new Vector2(0, rb.velocity.y);
+
+        yield return new WaitForSeconds(stunDuration);
+
+        isStunned = false;
+    }
+    private void FixedUpdate()
+    {
+        if (isStunned)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 }
