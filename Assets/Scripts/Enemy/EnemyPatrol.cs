@@ -5,13 +5,15 @@ public class EnemyPatrol : MonoBehaviour
 
     [SerializeField] private GameObject pointA;
     [SerializeField] private GameObject pointB;
-    [SerializeField] float speed;
+    [SerializeField] private float speed;
 
     Rigidbody2D rb;
     Transform currentPoint;
+    SpriteRenderer spriteRenderer;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentPoint = pointB.transform;
     }
 
@@ -24,7 +26,10 @@ public class EnemyPatrol : MonoBehaviour
         if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
         {
             currentPoint = currentPoint == pointB.transform ? pointA.transform : pointB.transform;
+            
+            spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+
     }
 
     private void OnDrawGizmos()
