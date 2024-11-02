@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class EnemyFloat : MonoBehaviour
 {
-    [SerializeField] private float floatSpeed = 1f;
-    [SerializeField] private float floatAmplitude = 0.5f;
+    [SerializeField] private float floatSpeed = 2.5f;
+    [SerializeField] private float floatAmplitude = 0.3f;
 
     private Vector3 startPos;
 

@@ -9,13 +9,16 @@ public class AudioManager : MonoBehaviour
     [SerializeField]  private AudioClip[] audios;
     PlayerController playerController;
     PlayerDash playerDash;
+    PlayerStun playerStun;
     private bool wasJumping = false;
     private bool wasDashing = false;
+    private bool wasStunned = false;
 
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
         playerDash = FindObjectOfType<PlayerDash>();
+        playerStun = FindObjectOfType<PlayerStun>();
         audioSource = GetComponent<AudioSource>();
 
     }
@@ -33,6 +36,12 @@ public class AudioManager : MonoBehaviour
             PlayDashSound();
         }
         wasDashing = playerDash.isDashing;
+
+        if (playerStun != null && playerStun.isStunned && !wasStunned)
+        {
+            PlayStunSound();
+        }
+        wasStunned = playerStun.isStunned;
     }
     public void PlayJumpSound()
     {
@@ -41,13 +50,22 @@ public class AudioManager : MonoBehaviour
 
     public void PlayDashSound()
     {
-        PlayAudio("SFX_Dash");
+        //PlayAudio("SFX_Jump");
+    }
+
+    public void PlayStunSound()
+    {
+        PlayAudio("SFX_Stun");
     }
 
     private void PlayAudio(string audioName)
     {
         AudioClip clip = FindAudioByName(audioName);
-
+        if(clip == null)
+        {
+            Debug.Log("Missing Audio Clip");
+            return;
+        }
         audioSource.clip = clip;
         audioSource.loop = false;
         audioSource.Play();
